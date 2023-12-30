@@ -9,7 +9,6 @@ type ZodErrorArr = {
 }[];
 
 const errorHandler = (error: Error, _req:Request, res:Response, _next:NextFunction) => {
-    // console.log(error);
     if (error instanceof ZodError) {
         const errorMessages: ZodErrorArr = error.issues.map(issue => ({ message: issue.message }));
         return res.status(HTTPSTATUS.BAD_REQUEST).json({

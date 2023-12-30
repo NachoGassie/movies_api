@@ -64,26 +64,20 @@ export const deleteUser = async (id: number): Promise<number> => {
 }
 
 const parseUserCreate = async (user: NewUser): Promise<NewUser> => {
-    const { email, password } = newUserSchema.parse(user);
+    let { email, password } = newUserSchema.parse(user);
 
-    await verifyEmail(email);
+    email = await verifyEmail(email);
+    password = await hashPassword(password);
     
-    const hashedPassword = await hashPassword(password);
-    return { email, password: hashedPassword }
+    return { email, password }
 }
 const parseUserUpdate = async (user: NewUser): Promise<UpdateUser> => {
-    const { email, password } = updateUserSchema.parse(user);
+    let { email, password } = updateUserSchema.parse(user);
 
-    await verifyEmail(email);
-
-    if (password) {
-        const hashedPassword = await hashPassword(password);
-        if (email) {
-            return { email, password: hashedPassword }
-        }
-        return { password: hashedPassword };
-    }
-    return { email };
+    if (email) email = await verifyEmail(email);
+    if (password) password = await hashPassword(password);
+    
+    return { email, password }
 }
 
 const hashPassword = async (password: string): Promise<string> => {
@@ -99,12 +93,13 @@ const validateUserId = async (id: number): Promise<number> => {
 
     return id;
 }
-const verifyEmail = async (email: string | undefined): Promise<void> => {
-    if (!email) return;
+const verifyEmail = async (email: string): Promise<string> => {
     const isAlreadyRegisterd = await authDb.existsUserByEmail(email);
     if(isAlreadyRegisterd){
         throw new BadRequestError("email " + email + " is already registered");
     }
+
+    return email.toLowerCase();
 }
 const getToken = (user: User): string => {
     return jwt.sign(user, SECRET);

@@ -75,7 +75,6 @@ export const deleteOneMovie = async (req: Request, res: Response) => {
 export const getPoster = (req: Request, res: Response) => {
     const posterUrl = movieService.validatePosterUrl(req.url);
     const imagePath = join(__dirname, "../../public/posters", posterUrl);
-    console.log(posterUrl);
 
     if (!fs.existsSync(imagePath)) {
         throw new NotFoundError("Poster not found");

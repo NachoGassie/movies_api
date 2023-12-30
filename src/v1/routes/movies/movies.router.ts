@@ -104,7 +104,7 @@ const router = express.Router();
  *           type: string
  *         required: true
  *         description: Nombre del poster
- *         example: la la land_1703842298838.jpg"
+ *         example: la la land_1703842298838.jpg
  *     responses:
  *       200:
  *         description: Poster recibido con éxito
