@@ -12,12 +12,12 @@ function isOriginIncluded (origin: string): boolean {
 }
 
 export default cors({
-    origin: (origin, cb) => {
-
-        if (!origin || isOriginIncluded(origin)) {
-            return cb(null, true);
-        }
+    origin: (_origin, cb) => {
+        return cb(null, true);
+        // if (!origin || isOriginIncluded(origin)) {
+        //     return cb(null, true);
+        // }
         
-        return cb(new UnathrorizedError("not allowed by cors"));
+        // return cb(new UnathrorizedError("not allowed by cors"));
     }
 });
