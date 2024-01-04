@@ -16,9 +16,9 @@ const options = {
         ]
     },
     apis: [ 
-        join(__dirname, "./routes/movies/movies.router.ts"),
-        join(__dirname, "./routes/genres/genres.router.ts"),
-        join(__dirname, "./routes/auth/auth.router.ts")
+        join(__dirname, "./routes/movies/movies.router.js"),
+        join(__dirname, "./routes/genres/genres.routerjs"),
+        join(__dirname, "./routes/auth/auth.routerjs")
     ]
 }
 

@@ -18,7 +18,6 @@ app .use("/api/v1/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec))
     .use("/api/v1/movies", moviesRouter)
     .use("/api/v1/genres", genresRouter)
     .use("/api/v1/auth", authRouter)
-    // .use("/api/v1/movie/poster", express.static(join(__dirname, "./public/posters")))
     .use(defaultRouter);
 
 app.use(errorHandler);
