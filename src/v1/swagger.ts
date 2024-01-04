@@ -1,5 +1,6 @@
 import { join } from "path";
 import swaggerJsDoc from "swagger-jsdoc";
+import { PORT } from "../config";
 
 const options = {
     definition: {
@@ -10,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:3040"
+                url: `http://localhost:${PORT}`
             }
         ]
     },
