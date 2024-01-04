@@ -1,5 +1,5 @@
-import { BadRequestError } from "@httpResponse";
-import { SortQuery } from "@model";
+import { BadRequestError } from "../../httpResponse";
+import { SortQuery } from "../../model";
 
 export const isString = (string: any): boolean => typeof(string) === "string";
 export const isNumber = (number: any): boolean => !!Number(number); 

@@ -1,3 +1,3 @@
-import { GenreOrderByQuery } from "@model";
+import { GenreOrderByQuery } from "../../model";
 
 export const defaultGenreOrder = GenreOrderByQuery.Id;

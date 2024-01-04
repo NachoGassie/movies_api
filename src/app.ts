@@ -1,7 +1,6 @@
-import { corsMiddleware, errorHandler } from "@middlewares";
-import { authRouter, defaultRouter, genresRouter, mainRouter, moviesRouter, swaggerSpec } from "@v1Routes";
+import { corsMiddleware, errorHandler } from "./middlewares";
+import { authRouter, defaultRouter, genresRouter, mainRouter, moviesRouter, swaggerSpec } from "./v1"
 import express from "express";
-import { join } from "path";
 import swaggerUI from "swagger-ui-express";
 
 const app = express();
@@ -14,6 +13,8 @@ app .use(corsMiddleware)
 
 app .use("/api/v1/docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec))
     .use("", mainRouter)
+    .use("/api", mainRouter)
+    .use("/api/v1", mainRouter)
     .use("/api/v1/movies", moviesRouter)
     .use("/api/v1/genres", genresRouter)
     .use("/api/v1/auth", authRouter)

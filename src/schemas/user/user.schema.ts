@@ -1,4 +1,4 @@
-import { basicError, greaterThanError, stringLenghtError } from "@schemas";
+import { basicError, greaterThanError, stringLenghtError } from "../global";
 import { z } from "zod";
 
 export const fullUserSchema = z.object({

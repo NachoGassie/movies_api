@@ -1,8 +1,8 @@
-import { ResponseCreated, ResponseHandler, ResponseOk } from "@httpResponse";
-import * as authService from "@service/auth"; 
-import { NewUser, ResponseUser, ValidateUserResponse } from "@model";
 import { Request, Response } from "express";
-import { parseToNumber } from "@utils";
+import { ResponseCreated, ResponseHandler, ResponseOk } from "../../httpResponse";
+import { NewUser, ResponseUser, ValidateUserResponse } from "../../model";
+import * as authService from "../../service/auth";
+import { parseToNumber } from "../../utils";
 
 export const validateUser = async (req: Request, res: Response) => {
     const body = req.body as unknown as NewUser;

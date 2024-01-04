@@ -1,5 +1,5 @@
-import { mySqlPool as pool} from "@db/mySql";
-import { NewGenre, GenreQueries } from "@model";
+import { mySqlPool as pool} from "../";
+import { GenreQueries } from "../../../model";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 // Get All Genres

@@ -1,6 +1,6 @@
-import * as mySqlAuth from "@db/mySql/auth";
-import * as mySqlGenres from "@db/mySql/genres";
-import * as mySqlMovies from "@db/mySql/movies";
+import * as mySqlAuth from "./mySql/auth";
+import * as mySqlGenres from "./mySql/genres";
+import * as mySqlMovies from "./mySql/movies";
 
 export default {
     mySqlDb : {

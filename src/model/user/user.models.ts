@@ -1,4 +1,4 @@
-import { fullUserSchema, newUserSchema, updateUserSchema, userResponseSchema } from "@schemas";
+import { fullUserSchema, newUserSchema, updateUserSchema, userResponseSchema } from "../../schemas";
 import { z } from "zod";
 
 export type User = z.infer<typeof fullUserSchema>;

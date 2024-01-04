@@ -1,7 +1,7 @@
-import { ResponseCreated, ResponseHandler, ResponseOk } from "@httpResponse";
-import { Genre, GenreQueries } from "@model";
-import * as genreService from "@service/genre";
-import { parseToNumber } from "@src/utils";
+import { ResponseCreated, ResponseHandler, ResponseOk } from "../../httpResponse";
+import { Genre, GenreQueries } from "../../model";
+import * as genreService from "../../service/genre";
+import { parseToNumber } from "../../utils";
 import { Request, Response } from "express";
 
 export const getAllGenres = async (req: Request, res: Response) => {

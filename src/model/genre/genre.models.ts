@@ -1,6 +1,6 @@
-import { genreQueriesSchema, genreSchema, newGenreNameSchema } from "@schemas";
+import { genreQueriesSchema, genreSchema, newGenreNameSchema } from "../../schemas";
 import { z } from "zod"
-import { getAllResponse } from "@model/global";
+import { getAllResponse } from "../../model/global";
 
 export type GenreQueries = z.infer<typeof genreQueriesSchema>
 

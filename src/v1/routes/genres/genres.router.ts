@@ -1,7 +1,7 @@
 import express from "express";
-import * as genreController from "@controller/genre";
-import { controllerTryCatch, validateToken } from "@middlewares";
-import { ValidationTypes } from "@model";
+import * as genreController from "../../../controller/genre";
+import { controllerTryCatch, validateToken } from "../../../middlewares";
+import { ValidationTypes } from "../../../model";
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
-import { MimeTypesAllowed } from "@constant";
-import { BadRequestError } from "@httpResponse";
-import { multerCallBack, multerFile } from "@model";
-import { removeBlankFromString } from "@utils";
+import { MimeTypesAllowed } from "../../constant";
+import { BadRequestError } from "../../httpResponse";
+import { multerCallBack, multerFile } from "../../model";
+import { removeBlankFromString } from "../../utils";
 import { Request } from "express";
 import multer from "multer";
 import { extname, join } from "path";

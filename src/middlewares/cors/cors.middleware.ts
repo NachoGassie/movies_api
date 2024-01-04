@@ -1,4 +1,4 @@
-import { UnathrorizedError } from "@httpResponse";
+import { UnathrorizedError } from "../../httpResponse";
 import cors from "cors";
 
 const ACCEPTED_ORIGINS = [

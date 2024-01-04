@@ -1,8 +1,8 @@
-import { dbFactory } from "@db";
-import { BadRequestError, InternalError, NotFoundError, UnathrorizedError } from "@httpResponse";
-import { NewUser, ResponseUser, UpdateUser, User, ValidateUserResponse } from "@model";
-import { newUserSchema, updateUserSchema } from "@schemas";
-import { SECRET } from "@src/config";
+import { dbFactory } from "../../db";
+import { BadRequestError, InternalError, NotFoundError, UnathrorizedError } from "../../httpResponse";
+import { NewUser, ResponseUser, UpdateUser, User, ValidateUserResponse } from "../../model";
+import { newUserSchema, updateUserSchema } from "../../schemas";
+import { SECRET } from "../../config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

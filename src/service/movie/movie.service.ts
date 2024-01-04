@@ -1,10 +1,10 @@
-import { extensionAllowed } from "@constant";
-import { dbFactory } from "@db";
-import { BadRequestError, InternalError, NotFoundError } from "@httpResponse";
-import { GetAllMoviesResp, Movie, MovieQueries, NewMovie, updateMovie } from "@model";
-import { movieQueriesSchema, newMovieSchema, updateMovieSchema } from "@schemas";
-import { validateGenreId } from "@service/genre";
-import * as paginationUtil from "@utils/global/pagination.utils";
+import { extensionAllowed } from "../../constant";
+import { dbFactory } from "../../db";
+import { BadRequestError, InternalError, NotFoundError } from "../../httpResponse";
+import { GetAllMoviesResp, Movie, MovieQueries, NewMovie, updateMovie } from "../../model";
+import { movieQueriesSchema, newMovieSchema, updateMovieSchema } from "../../schemas";
+import { validateGenreId } from "../genre";
+import * as paginationUtil from "../../utils/global/pagination.utils";
 
 const moviesDb = dbFactory.mySqlDb.movies;
 

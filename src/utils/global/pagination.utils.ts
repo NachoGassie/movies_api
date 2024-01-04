@@ -1,6 +1,6 @@
-import { GenreQueries, MovieQueries, NextPrevPag, NullishString, UrlPagObj } from "@model";
-import { BadRequestError } from "@httpResponse";
-import { defaultLimit, defaultPag } from "@constant";
+import { GenreQueries, MovieQueries, NextPrevPag, NullishString, UrlPagObj } from "../../model";
+import { BadRequestError } from "../../httpResponse";
+import { defaultLimit, defaultPag } from "../../constant";
 
 type AcceptedQueries = MovieQueries | GenreQueries;
 interface PagLimit { pag: number, limit: number }

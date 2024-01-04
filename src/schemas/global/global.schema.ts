@@ -1,6 +1,6 @@
-import { defaultLimit, defaultPag, defaultSort } from "@constant";
-import { SortQuery } from "@model";
-import { basicError, greaterThanError } from "@schemas/global";
+import { defaultLimit, defaultPag, defaultSort } from "../../constant";
+import { SortQuery } from "../../model";
+import { basicError, greaterThanError } from "../global";
 import { z } from "zod";
 
 export const QuerySchema = z.object({

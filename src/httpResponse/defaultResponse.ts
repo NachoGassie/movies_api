@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { CustomReponse } from "@httpResponse/customResponse";
+import { CustomReponse } from "../httpResponse";
 
 const ResponseHandler = (res: Response, httpResponse: CustomReponse<unknown>) => {
     const { statusCode, data } = httpResponse;

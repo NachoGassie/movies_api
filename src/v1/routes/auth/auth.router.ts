@@ -1,7 +1,7 @@
 import express from 'express';
-import { controllerTryCatch, validateToken } from "@middlewares";
-import * as authController from "@controller/auth";
-import { ValidationTypes } from '@model';
+import { controllerTryCatch, validateToken } from "../../../middlewares";
+import * as authController from "../../../controller/auth";
+import { ValidationTypes } from '../../../model';
 
 const router = express.Router();
 

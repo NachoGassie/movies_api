@@ -1,9 +1,9 @@
-import { InternalError, NotFoundError } from "@httpResponse";
-import { Genre, GenreQueries, GetAllGenreResp, NewGenre } from "@model";
-import { genreQueriesSchema, newGenreNameSchema } from "@schemas";
-import { dbFactory } from "@db";
-import { parseToNumber } from "@utils";
-import * as paginationUtil from "@utils/global/pagination.utils";
+import { InternalError, NotFoundError } from "../../httpResponse";
+import { Genre, GenreQueries, GetAllGenreResp, NewGenre } from "../../model";
+import { genreQueriesSchema, newGenreNameSchema } from "../../schemas";
+import { dbFactory } from "../../db";
+import { parseToNumber } from "../../utils";
+import * as paginationUtil from "../../utils/global/pagination.utils";
 
 const genresDb = dbFactory.mySqlDb.genres;
 

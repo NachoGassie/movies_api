@@ -1,10 +1,10 @@
-import { NotFoundError, ResponseCreated, ResponseHandler, ResponseOk } from "@httpResponse";
-import { GetAllMoviesResp, HTTPSTATUS, Movie, MovieQueries } from "@model";
-import * as movieService from "@service/movie";
-import { parseToNumber } from "@utils";
 import { Request, Response } from "express";
 import fs from "fs";
 import { join } from "path";
+import { NotFoundError, ResponseCreated, ResponseHandler, ResponseOk } from "../../httpResponse";
+import { GetAllMoviesResp, HTTPSTATUS, Movie, MovieQueries } from "../../model";
+import * as movieService from "../../service/movie";
+import { parseToNumber } from "../../utils";
 
 export const getAllMovies = async (req: Request, res: Response) => {
     const query = req.query as unknown as MovieQueries;

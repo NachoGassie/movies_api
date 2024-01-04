@@ -1,4 +1,4 @@
-import { MovieOrderByQuery } from "@model";
+import { MovieOrderByQuery } from "../../model";
 
 // poster
 export const extensionAllowed = ["jpg", "jpeg", "png"];

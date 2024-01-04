@@ -1,6 +1,6 @@
-import { invalidJson, jwtError, mySqlError } from "@constant";
-import { CustomError } from "@httpResponse";
-import { HTTPSTATUS } from "@model";
+import { invalidJson, jwtError, mySqlError } from "../../constant";
+import { CustomError } from "../../httpResponse";
+import { HTTPSTATUS } from  "../../model";
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 

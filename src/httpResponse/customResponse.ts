@@ -1,4 +1,4 @@
-import { HTTPSTATUS } from "@model";
+import { HTTPSTATUS } from "../model";
 
 export abstract class CustomReponse<T> {
     statusCode: HTTPSTATUS; 

@@ -1,4 +1,4 @@
-import { BadRequestError } from "@httpResponse";
+import { BadRequestError } from "../../../httpResponse";
 import { Router } from "express";
 
 const router = Router();

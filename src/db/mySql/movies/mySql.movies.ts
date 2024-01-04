@@ -1,5 +1,5 @@
-import { mySqlPool as pool} from "@db/mySql";
-import { MovieQueries, NewMovie, updateMovie } from "@model";
+import { mySqlPool as pool} from "../";
+import { MovieQueries, NewMovie, updateMovie } from "../../../model";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 // GET ALL

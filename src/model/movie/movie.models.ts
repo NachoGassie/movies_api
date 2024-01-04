@@ -1,6 +1,6 @@
-import { movieQueriesSchema, movieSchema, newMovieSchema, updateMovieSchema } from "@schemas";
+import { movieQueriesSchema, movieSchema, newMovieSchema, updateMovieSchema } from "../../schemas";
 import { z } from "zod";
-import { getAllResponse } from "@model/global";
+import { getAllResponse } from "../../model/global";
 
 
 export type Movie = z.infer<typeof movieSchema>

@@ -1,8 +1,8 @@
-import { defaultMovieOrder } from "@constant";
-import { existsGenre } from "@db/mySql/genres/mySql.genres";
-import { MovieOrderByQuery } from "@model";
-import { anioLanzamientoError, basicError, greaterThanError, stringLenghtError } from "@schemas/global";
-import { QuerySchema } from "@schemas/global/global.schema";
+import { defaultMovieOrder } from "../../constant";
+import { existsGenre } from "../../db/mySql/genres/mySql.genres";
+import { MovieOrderByQuery } from "../../model";
+import { anioLanzamientoError, basicError, greaterThanError, stringLenghtError } from "../global";
+import { QuerySchema } from "../global/global.schema";
 import { z } from "zod";
 
 export const movieSchema = z.object({

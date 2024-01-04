@@ -1,6 +1,6 @@
-import { ValidationTypes } from "@model";
-import { SECRET } from "@src/config";
-import { ForbiddenError, UnathrorizedError } from "@httpResponse";
+import { ValidationTypes } from "../../model";
+import { SECRET } from "../..//config";
+import { ForbiddenError, UnathrorizedError } from "../../httpResponse";
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 

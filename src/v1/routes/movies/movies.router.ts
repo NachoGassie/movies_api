@@ -1,6 +1,6 @@
-import * as moviesController from "@controller/movie";
-import { controllerTryCatch, posterMiddleware, validateToken } from "@middlewares";
-import { ValidationTypes } from "@model";
+import * as moviesController from "../../../controller/movie";
+import { controllerTryCatch, posterMiddleware, validateToken } from "../../../middlewares";
+import { ValidationTypes } from "../../../model";
 import express from "express";
 
 const router = express.Router();

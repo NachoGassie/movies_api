@@ -1,7 +1,7 @@
-import { defaultGenreOrder } from "@constant";
-import { GenreOrderByQuery } from "@model";
-import { basicError, greaterThanError, stringLenghtError } from "@schemas/global";
-import { QuerySchema } from "@schemas/global/global.schema";
+import { defaultGenreOrder } from "../../constant";
+import { GenreOrderByQuery } from "../../model";
+import { basicError, greaterThanError, stringLenghtError } from "../global";
+import { QuerySchema } from "../global/global.schema";
 import { z } from "zod";
 
 export const genreSchema = z.object({

@@ -1,5 +1,5 @@
-import { mySqlPool as pool} from "@db/mySql";
-import { NewUser, UpdateUser } from "@model";
+import { mySqlPool as pool} from "../";
+import { NewUser, UpdateUser } from "../../../model";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 // GET

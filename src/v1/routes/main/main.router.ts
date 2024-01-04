@@ -1,4 +1,4 @@
-import { ResponseHandler, ResponseOk } from "@httpResponse";
+import { ResponseHandler, ResponseOk } from "../../../httpResponse";
 import express from "express";
 
 const router = express.Router();
