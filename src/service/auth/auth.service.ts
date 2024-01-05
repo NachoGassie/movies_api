@@ -6,12 +6,13 @@ import { SECRET } from "../../config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const authDb = dbFactory.mySqlDb.auth;
+// const authMySql = dbFactory.mySqlDb.auth;
+const authPG = dbFactory.pgDb.auth;
 
 export const validateUser = async (newUser: NewUser): Promise<ValidateUserResponse> => {
     const { email: reqEmail, password: reqPassword } = await newUserSchema.parseAsync(newUser);
 
-    const user = await authDb.getUserByEmail(reqEmail) as User;
+    const user = await authPG.getUserByEmail(reqEmail);
     if (!user) {
         throw new UnathrorizedError("invalid user and/or password");
     }
@@ -34,7 +35,7 @@ export const createUser = async (newUser: NewUser): Promise<ResponseUser> => {
 
     const { email } = parsedUser;
 
-    const idUser = await authDb.createOneUser(parsedUser);
+    const idUser = await authPG.createOneUser(parsedUser);
     if (!idUser) {
         throw new InternalError("it was not possible to create the user");
     }
@@ -45,7 +46,7 @@ export const updateUser = async (id: number, newUser: NewUser): Promise<number> 
     const idUser = await validateUserId(id);
     const parsedUser = await parseUserUpdate(newUser);
 
-    const affectedRows = await authDb.updateOneUser(parsedUser, idUser);
+    const affectedRows = await authPG.updateOneUser(parsedUser, idUser);
     if (affectedRows !== 1) {
         throw new InternalError("user with id " + idUser + " could not be updated");
     }
@@ -55,7 +56,7 @@ export const updateUser = async (id: number, newUser: NewUser): Promise<number> 
 export const deleteUser = async (id: number): Promise<number> => {
     const parsedId = await validateUserId(id);
 
-    const affectedRows = await authDb.deleteOneUser(parsedId);
+    const affectedRows = await authPG.deleteOneUser(parsedId);
     if (affectedRows !== 1) {
         throw new InternalError("user with id " + parsedId + " could not be deleted");
     }
@@ -86,7 +87,7 @@ const hashPassword = async (password: string): Promise<string> => {
     return hashedPassword
 }
 const validateUserId = async (id: number): Promise<number> => {
-    const existsUser = await authDb.existsUser(id);
+    const existsUser = await authPG.existsUser(id);
     if (!existsUser) {
         throw new NotFoundError("user with id " + id + " does not exist");
     }
@@ -94,7 +95,7 @@ const validateUserId = async (id: number): Promise<number> => {
     return id;
 }
 const verifyEmail = async (email: string): Promise<string> => {
-    const isAlreadyRegisterd = await authDb.existsUserByEmail(email);
+    const isAlreadyRegisterd = await authPG.existsUserByEmail(email);
     if(isAlreadyRegisterd){
         throw new BadRequestError("email " + email + " is already registered");
     }

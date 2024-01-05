@@ -20,8 +20,8 @@ export const movieSchema = z.object({
 
     anioLanzamiento: z
         .number(anioLanzamientoError())
-        .gt(1900, greaterThanError("anioLanzamiento", 1900))
-        .lte(new Date().getFullYear(), "anioLanzamiento must be equal to or below the current year"),
+        .gt(1900, "anioLanzamiento must be equal to or below the current year and above 1900")
+        .lte(new Date().getFullYear(), "anioLanzamiento must be equal to or below the current year and above 1900"),
         
     poster: z
         .string(basicError("poster", "string")),

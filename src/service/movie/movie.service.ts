@@ -6,17 +6,18 @@ import { movieQueriesSchema, newMovieSchema, updateMovieSchema } from "../../sch
 import { validateGenreId } from "../genre";
 import * as paginationUtil from "../../utils/global/pagination.utils";
 
-const moviesDb = dbFactory.mySqlDb.movies;
+// const moviesMySql = dbFactory.mySqlDb.movies;
+const moviesPG = dbFactory.pgDb.movies;
 
 export const getAllMovies = async (
     query: MovieQueries, baseUrl: string
 ): Promise<GetAllMoviesResp> => {
 
     const movieQueries: MovieQueries = parseMovieQueries(query);
-    const totalCount: number = await moviesDb.moviesCount();
-    const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
+    const totalCount: number = await moviesPG.moviesCount();
 
-    const movies = await moviesDb.getAllMovies(movieQueries) as Movie[]; 
+    const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
+    const movies = await moviesPG.getAllMovies(movieQueries);
     const { pag } = movieQueries;
 
     return { movies, next, prev, pag, maxPag, totalCount }
@@ -28,16 +29,16 @@ export const getAllMoviesByGenre = async (
 
     const movieQueries: MovieQueries = parseMovieQueries(query);    
     const parsedIdGenero = await validateGenreId(idGenero);
-    const totalCount: number = await moviesDb.moviesCountByGenre(parsedIdGenero);
+    const totalCount: number = await moviesPG.moviesCountByGenre(parsedIdGenero);
     const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
 
-    const movies = await moviesDb.getAllMoviesByGenre(movieQueries, idGenero) as Movie[]; 
+    const movies = await moviesPG.getAllMoviesByGenre(movieQueries, idGenero); 
     const { pag } = movieQueries;
 
     return { movies, next, prev, pag, maxPag, totalCount }
 }
 export const getMovieById = async (movieId: number): Promise<Movie> => {
-    const movie = await moviesDb.getMovieById(movieId) as Movie;
+    const movie = await moviesPG.getMovieById(movieId) as Movie;
     if (!movie) {
         throw new NotFoundError("movie with id " + movieId +" does not exist");
     }
@@ -47,12 +48,12 @@ export const getMovieById = async (movieId: number): Promise<Movie> => {
 export const createMovie = async (movie: NewMovie): Promise<Movie> => {
     const newMovie = await parseNewMovie(movie);
 
-    const movieId = await moviesDb.createOneMovie(newMovie);
-    if (!movieId) {
+    const insertId = await moviesPG.createOneMovie(newMovie);
+    if (!insertId) {
         throw new InternalError("it was not possible to create the movie");
     }
 
-    return await getMovieById(movieId);
+    return getMovieById(insertId);
 }
 export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Movie> => {
 
@@ -63,17 +64,17 @@ export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Mo
     const movieId = await validateMovieId(id);
     const newMovie = await parseUpdateMovie(movie);
     
-    const affectedRows  = await moviesDb.updateOneMovie(newMovie, movieId);
+    const affectedRows  = await moviesPG.updateOneMovie(newMovie, movieId);
     if (affectedRows !== 1) {
         throw new InternalError("movie with id " + movieId + " could not be updated");
     }   
 
-    return await getMovieById(movieId);
+    return getMovieById(movieId);
 }
 export const deleteOneMovie = async (id: number) => {
     const movieId = await validateMovieId(id);
 
-    const affectedRows = await moviesDb.deleteOneMovie(movieId);
+    const affectedRows = await moviesPG.deleteOneMovie(movieId);
     if (affectedRows !== 1) {
         throw new InternalError("movie with id " + movieId + " could not be deleted");
     }   
@@ -84,9 +85,9 @@ export const validatePosterUrl = (posterUrl: string): string => {
     const dotSplit = posterUrl.split(".")
     const type = dotSplit[1];
 
-    if (!type || !extensionAllowed.includes(type)) {
+    if (!type || !extensionAllowed.includes(type)) {4
         throw new BadRequestError(
-            `poster name must must have one the following extensions ${extensionAllowed.join("-")}`
+            "poster name must must have one the following extensions " + extensionAllowed.join(" - ")
         );
     }
 
@@ -101,8 +102,8 @@ export const validatePosterUrl = (posterUrl: string): string => {
 
 
 const validateMovieId = async (id: number): Promise<number> => {
-    const existMovie = await moviesDb.existMovie(id);
-    if (!existMovie) {
+    const existMovie2 = await moviesPG.existMovie(id);
+    if (!existMovie2) {
         throw new NotFoundError("movie with id " + id + " does not exist");
     }
 

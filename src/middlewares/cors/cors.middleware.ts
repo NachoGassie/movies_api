@@ -5,6 +5,7 @@ const ACCEPTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3040",
     "http://localhost:5173",
+    "http://localhost:10000",
 ];
 
 function isOriginIncluded (origin: string): boolean {
@@ -12,12 +13,12 @@ function isOriginIncluded (origin: string): boolean {
 }
 
 export default cors({
-    origin: (_origin, cb) => {
-        return cb(null, true);
-        // if (!origin || isOriginIncluded(origin)) {
-        //     return cb(null, true);
-        // }
+    origin: (origin, cb) => {
+
+        if (!origin || isOriginIncluded(origin)) {
+            return cb(null, true);
+        }
         
-        // return cb(new UnathrorizedError("not allowed by cors"));
+        return cb(new UnathrorizedError("not allowed by cors"));
     }
 });

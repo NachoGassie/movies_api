@@ -5,7 +5,7 @@ export interface NextPrevPag {
     prev: string | null;
 }
 
-export interface getAllResponse extends NextPrevPag{
+export interface GetAllResponse extends NextPrevPag{
     pag: number;
     maxPag: number;
     totalCount: number;

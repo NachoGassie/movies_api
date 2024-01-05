@@ -37,15 +37,15 @@ CREATE TABLE `generos` (
 --
 
 INSERT INTO `generos` (`id_genero`, `genero`) VALUES
-(5, 'drama'),
-(6, 'romance'),
-(8, 'musical'),
-(9, 'fantasia'),
-(10, 'horror'),
-(11, 'comedia'),
-(26, 'crimen'),
-(27, 'animacion'),
-(40, 'thriller'),
+(1, 'drama'),
+(2, 'romance'),
+(3, 'musical'),
+(4, 'fantasia'),
+(5, 'horror'),
+(6, 'comedia'),
+(7, 'crimen'),
+(8, 'animacion'),
+(9, 'thriller'),
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `peliculas` (
 
 INSERT INTO `peliculas` (`id`, `titulo`, `anio_lanzamiento`, `sinopsis`, `poster`, `id_genero`) VALUES
 (1, 'la la land', 2016, 'la mejor pelicula de todos los tiempos', 'lalaland_1703848148543.jpg', 8),
-(818, 'singing in the rain', 1966, 'Un clasico de los musicales', 'singing_1703898283084.jpg', 8);
+(2, 'singing in the rain', 1966, 'Un clasico de los musicales', 'singing_1703898283084.jpg', 8);
 
 -- --------------------------------------------------------
 
@@ -88,8 +88,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `email`, `password`) VALUES
 (1, 'user@user.com', '$2a$12$jx/OydN15fSz0fjQFSfXGOgb9gQFeP0kaDocjzcvJil2n9799SoXy'),
-(22, 'user2@user.com', '$2b$10$IxdI7nm47dDzujOcW7OYQO4qu8dy/CRLt5Xo77gnJc49eQCS4TtKq'),
-(23, 'newuser@user.com', '$2b$10$QgMxI.BRT.CiYja9XEqFo.V07KqDIMQ6csVkByfXqFy/Ae6xya28.');
+(2, 'user2@user.com', '$2b$10$IxdI7nm47dDzujOcW7OYQO4qu8dy/CRLt5Xo77gnJc49eQCS4TtKq'),
+(3, 'newuser@user.com', '$2b$10$QgMxI.BRT.CiYja9XEqFo.V07KqDIMQ6csVkByfXqFy/Ae6xya28.');
 
 --
 -- Índices para tablas volcadas
