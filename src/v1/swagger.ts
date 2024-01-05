@@ -11,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: `http://localhost:${PORT}`
+                url: "https://movies-api-idv6.onrender.com/"
             }
         ]
     },

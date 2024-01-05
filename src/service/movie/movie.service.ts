@@ -6,18 +6,20 @@ import { movieQueriesSchema, newMovieSchema, updateMovieSchema } from "../../sch
 import { validateGenreId } from "../genre";
 import * as paginationUtil from "../../utils/global/pagination.utils";
 
-// const moviesMySql = dbFactory.mySqlDb.movies;
-const moviesPG = dbFactory.pgDb.movies;
+// MySql moviesDb : dbFactory.mySqlDb.movies;
+// Pg moviesDb : dbFactory.pgDb.movies;
+
+const moviesDb = dbFactory.pgDb.movies;
 
 export const getAllMovies = async (
     query: MovieQueries, baseUrl: string
 ): Promise<GetAllMoviesResp> => {
 
     const movieQueries: MovieQueries = parseMovieQueries(query);
-    const totalCount: number = await moviesPG.moviesCount();
+    const totalCount: number = await moviesDb.moviesCount();
 
     const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
-    const movies = await moviesPG.getAllMovies(movieQueries);
+    const movies = await moviesDb.getAllMovies(movieQueries);
     const { pag } = movieQueries;
 
     return { movies, next, prev, pag, maxPag, totalCount }
@@ -29,16 +31,16 @@ export const getAllMoviesByGenre = async (
 
     const movieQueries: MovieQueries = parseMovieQueries(query);    
     const parsedIdGenero = await validateGenreId(idGenero);
-    const totalCount: number = await moviesPG.moviesCountByGenre(parsedIdGenero);
+    const totalCount: number = await moviesDb.moviesCountByGenre(parsedIdGenero);
     const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
 
-    const movies = await moviesPG.getAllMoviesByGenre(movieQueries, idGenero); 
+    const movies = await moviesDb.getAllMoviesByGenre(movieQueries, idGenero); 
     const { pag } = movieQueries;
 
     return { movies, next, prev, pag, maxPag, totalCount }
 }
 export const getMovieById = async (movieId: number): Promise<Movie> => {
-    const movie = await moviesPG.getMovieById(movieId) as Movie;
+    const movie = await moviesDb.getMovieById(movieId) as Movie;
     if (!movie) {
         throw new NotFoundError("movie with id " + movieId +" does not exist");
     }
@@ -48,7 +50,7 @@ export const getMovieById = async (movieId: number): Promise<Movie> => {
 export const createMovie = async (movie: NewMovie): Promise<Movie> => {
     const newMovie = await parseNewMovie(movie);
 
-    const insertId = await moviesPG.createOneMovie(newMovie);
+    const insertId = await moviesDb.createOneMovie(newMovie);
     if (!insertId) {
         throw new InternalError("it was not possible to create the movie");
     }
@@ -64,7 +66,7 @@ export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Mo
     const movieId = await validateMovieId(id);
     const newMovie = await parseUpdateMovie(movie);
     
-    const affectedRows  = await moviesPG.updateOneMovie(newMovie, movieId);
+    const affectedRows  = await moviesDb.updateOneMovie(newMovie, movieId);
     if (affectedRows !== 1) {
         throw new InternalError("movie with id " + movieId + " could not be updated");
     }   
@@ -74,7 +76,7 @@ export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Mo
 export const deleteOneMovie = async (id: number) => {
     const movieId = await validateMovieId(id);
 
-    const affectedRows = await moviesPG.deleteOneMovie(movieId);
+    const affectedRows = await moviesDb.deleteOneMovie(movieId);
     if (affectedRows !== 1) {
         throw new InternalError("movie with id " + movieId + " could not be deleted");
     }   
@@ -102,7 +104,7 @@ export const validatePosterUrl = (posterUrl: string): string => {
 
 
 const validateMovieId = async (id: number): Promise<number> => {
-    const existMovie2 = await moviesPG.existMovie(id);
+    const existMovie2 = await moviesDb.existMovie(id);
     if (!existMovie2) {
         throw new NotFoundError("movie with id " + id + " does not exist");
     }

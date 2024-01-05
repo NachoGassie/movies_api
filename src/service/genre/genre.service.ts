@@ -5,19 +5,21 @@ import { dbFactory } from "../../db";
 import { parseToNumber } from "../../utils";
 import * as paginationUtil from "../../utils/global/pagination.utils";
 
-// const genresMySql = dbFactory.mySqlDb.genres;
-const genresPG = dbFactory.pgDb.genres;
+// MySql genresDb : dbFactory.mySqlDb.genres;
+// Pg genresDb : dbFactory.pgDb.genres;
+
+const genresDb = dbFactory.pgDb.genres;
 
 export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promise<GetAllGenreResp> => {
     const genreQueries: GenreQueries = parseGenreQuery(query);
-    const totalCount: number = await genresPG.countAllGenres();
+    const totalCount: number = await genresDb.countAllGenres();
 
     const { pag, limit } = genreQueries;
     paginationUtil.isValidPagination(pag, limit, totalCount);
 
     const { next, prev } = paginationUtil.getPaginationUrlUtil(genreQueries, baseUrl, totalCount);
 
-    const genres = await genresPG.getAllGenres(genreQueries) as Genre[];
+    const genres = await genresDb.getAllGenres(genreQueries) as Genre[];
     const maxPag = Math.ceil(totalCount / limit);
 
     return { genres, next, prev, pag, maxPag, totalCount }
@@ -25,7 +27,7 @@ export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promis
 export const getOneGenre = async (idGenero: number): Promise<Genre> => {
     const parsedId = parseToNumber(idGenero);
 
-    const genre = await genresPG.getOneGenre(parsedId) as Genre;
+    const genre = await genresDb.getOneGenre(parsedId) as Genre;
     if (!genre) {
         throw new NotFoundError("genre with id "+ parsedId +" does not exist");
     }
@@ -35,7 +37,7 @@ export const getOneGenre = async (idGenero: number): Promise<Genre> => {
 export const createOneGenre = async (newGenre: NewGenre): Promise<Genre> => {
     const { genero } = newGenreNameSchema.parse(newGenre);
 
-    const insertId = await genresPG.createOneGenre(genero);
+    const insertId = await genresDb.createOneGenre(genero);
     if (!insertId) {
         throw new InternalError("it was not possible to create the genre");
     }
@@ -45,7 +47,7 @@ export const updateOneGenre = async (id: number, newGenre: NewGenre): Promise<Ge
     const parsedId = await validateGenreId(id);
     const { genero } = newGenreNameSchema.parse(newGenre);
 
-    const affectedRows = await genresPG.updateOneGenre(genero, parsedId);
+    const affectedRows = await genresDb.updateOneGenre(genero, parsedId);
 
     if (affectedRows !== 1) {
         throw new InternalError("genre with id " + parsedId + " could not be updated");
@@ -56,7 +58,7 @@ export const updateOneGenre = async (id: number, newGenre: NewGenre): Promise<Ge
 export const deleteOneGenre = async (idGenero: number): Promise<number> => {
     const parsedId = await validateGenreId(idGenero);
 
-    const affectedRows = await genresPG.deleteOneGenre(parsedId);
+    const affectedRows = await genresDb.deleteOneGenre(parsedId);
     if (affectedRows !== 1) {
         throw new InternalError("genre with id " + parsedId + " could not be deleted");
     }   
@@ -65,7 +67,7 @@ export const deleteOneGenre = async (idGenero: number): Promise<number> => {
 }
 
 export const validateGenreId = async (id: number): Promise<number> => {
-    const existsGenre = await genresPG.existsGenre(id);
+    const existsGenre = await genresDb.existsGenre(id);
     if (!existsGenre) {
         throw new NotFoundError("genre with id " + id + " does not exist");
     }
