@@ -6,7 +6,7 @@ const ACCEPTED_ORIGINS = [
     "http://localhost:3040",
     "http://localhost:5173",
     "http://localhost:10000",
-    "https://movies-api-idv6.onrender.com/",
+    "https://movies-api-idv6.onrender.com",
 ];
 
 function isOriginIncluded (origin: string): boolean {
