@@ -61,7 +61,6 @@ const router = express.Router();
  *        - titulo 
  *        - sinopsis 
  *        - anioLanzamiento 
- *        - poster 
  *        - idGenero
  *      example: 
  *        titulo: La La land
