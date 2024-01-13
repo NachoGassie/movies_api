@@ -25,7 +25,7 @@ const errorHandler = (error: Error, _req:Request, res:Response, _next:NextFuncti
         if (mySqlError.includes(error.code as string)) {
             console.log(error);
             statusCode = HTTPSTATUS.UNAVAILABLE;
-            message = "Unavailable to connect to Database";
+            message = "Unavailable to connect to Database - " + error.message;
         }
     }
 

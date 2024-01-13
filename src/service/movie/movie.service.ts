@@ -55,7 +55,7 @@ export const createMovie = async (movie: NewMovie): Promise<Movie> => {
         throw new InternalError("it was not possible to create the movie");
     }
 
-    return getMovieById(insertId);
+    return moviesDb.getMovieById(insertId);
 }
 export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Movie> => {
 
@@ -71,7 +71,7 @@ export const updateOneMovie = async (id: number, movie: updateMovie): Promise<Mo
         throw new InternalError("movie with id " + movieId + " could not be updated");
     }   
 
-    return getMovieById(movieId);
+    return moviesDb.getMovieById(movieId);
 }
 export const deleteOneMovie = async (id: number) => {
     const movieId = await validateMovieId(id);

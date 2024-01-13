@@ -11,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: "https://movies-api-idv6.onrender.com/"
+                url: "https://movies-api-idv6.onrender.com"
             }
         ]
     },

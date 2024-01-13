@@ -36,24 +36,24 @@ export const getOneGenre = async (idGenero: number): Promise<Genre> => {
 } 
 export const createOneGenre = async (newGenre: NewGenre): Promise<Genre> => {
     const { genero } = newGenreNameSchema.parse(newGenre);
-
     const insertId = await genresDb.createOneGenre(genero);
+
     if (!insertId) {
         throw new InternalError("it was not possible to create the genre");
     }
-    return getOneGenre(insertId);
+
+    return genresDb.getOneGenre(insertId);
 }
 export const updateOneGenre = async (id: number, newGenre: NewGenre): Promise<Genre> => {
     const parsedId = await validateGenreId(id);
     const { genero } = newGenreNameSchema.parse(newGenre);
 
     const affectedRows = await genresDb.updateOneGenre(genero, parsedId);
-
     if (affectedRows !== 1) {
         throw new InternalError("genre with id " + parsedId + " could not be updated");
     }   
 
-    return getOneGenre(parsedId);
+    return genresDb.getOneGenre(parsedId);
 }
 export const deleteOneGenre = async (idGenero: number): Promise<number> => {
     const parsedId = await validateGenreId(idGenero);

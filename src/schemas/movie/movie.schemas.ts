@@ -5,6 +5,8 @@ import { anioLanzamientoError, basicError, greaterThanError, stringLenghtError }
 import { QuerySchema } from "../global/global.schema";
 import { z } from "zod";
 
+const anioLanzamientoErr = "anioLanzamiento must be equal to or below the current year and above 1900";
+
 export const movieSchema = z.object({
     id: z
         .number(basicError("id", "number"))
@@ -20,11 +22,12 @@ export const movieSchema = z.object({
 
     anioLanzamiento: z
         .number(anioLanzamientoError())
-        .gt(1900, "anioLanzamiento must be equal to or below the current year and above 1900")
-        .lte(new Date().getFullYear(), "anioLanzamiento must be equal to or below the current year and above 1900"),
+        .gt(1900, anioLanzamientoErr)
+        .lte(new Date().getFullYear(), anioLanzamientoErr),
         
     poster: z
-        .string(basicError("poster", "string")),
+        .string(basicError("poster", "string"))
+        .optional(),
 
     idGenero: z
         .number(basicError("idGenero", "number"))
