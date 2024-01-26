@@ -90,37 +90,6 @@ const router = express.Router();
  *        idGenero: 8
  */
 
-/**
- * @swagger
- * /api/v1/movies/poster/{posterName}:
- *   get:
- *     summary: Obtener un poster
- *     tags: [Movie]
- *     parameters:
- *       - in: path
- *         name: posterName
- *         schema:
- *           type: string
- *         required: true
- *         description: Nombre del poster
- *         example: la la land_1703842298838.jpg
- *     responses:
- *       200:
- *         description: Poster recibido con éxito
- *         content:
- *           image/jpeg:
- *             example: "base64-encoded-image-data"
- *           image/jpg:
- *             example: "base64-encoded-image-data"
- *           image/png:
- *             example: "base64-encoded-image-data"
- *       400:
- *          description: El nombre del poster no se encuentra en el formato 'name_id.ext' o no posee una extension permitida(jpg, jpeg, png)
- *       404:
- *          description: El poster no está disponible
- *       500:
- *         description: Error interno 
- */
 router.use("/poster", controllerTryCatch(moviesController.getPoster));
 /**
  * @swagger
