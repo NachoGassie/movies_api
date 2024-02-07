@@ -117,7 +117,7 @@ router.use("/poster", controllerTryCatch(moviesController.getPoster));
  *         name: order
  *         schema:
  *           type: string
- *         description: Campo por el cual ordenar(id, titulo, sinopsis o anioLanzamiento) - default id
+ *         description: Campo por el cual ordenar(id, titulo, sinopsis o anio_lanzamiento) - default id
  *     responses:
  *       200:
  *         description: Películas recibidas con éxito

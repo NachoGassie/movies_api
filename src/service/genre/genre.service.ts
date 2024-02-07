@@ -8,7 +8,7 @@ import * as paginationUtil from "../../utils/global/pagination.utils";
 // MySql genresDb : dbFactory.mySqlDb.genres;
 // Pg genresDb : dbFactory.pgDb.genres;
 
-const genresDb = dbFactory.pgDb.genres;
+const genresDb = dbFactory.mySqlDb.genres;
 
 export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promise<GetAllGenreResp> => {
     const genreQueries: GenreQueries = parseGenreQuery(query);
