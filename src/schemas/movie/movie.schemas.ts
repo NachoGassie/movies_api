@@ -26,8 +26,7 @@ export const movieSchema = z.object({
         .lte(new Date().getFullYear(), anioLanzamientoErr),
         
     poster: z
-        .string(basicError("poster", "string"))
-        .optional(),
+        .string(basicError("poster", "string")),
 
     idGenero: z
         .number(basicError("idGenero", "number"))
