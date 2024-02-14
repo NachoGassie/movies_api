@@ -32,6 +32,11 @@ export const getAllMoviesByGenre = async (
     const movieQueries: MovieQueries = parseMovieQueries(query);    
     const parsedIdGenero = await validateGenreId(idGenero);
     const totalCount: number = await moviesDb.moviesCountByGenre(parsedIdGenero);
+    
+    if (totalCount <= 0) {
+        return getAllMoviesEmptyArray();
+    }
+
     const { next, prev, maxPag } = getAllMoviesHelper(movieQueries, totalCount, baseUrl);
 
     const movies = await moviesDb.getAllMoviesByGenre(movieQueries, idGenero); 
@@ -150,3 +155,11 @@ const getAllMoviesHelper = (movieQueries: MovieQueries, totalCount: number, base
 
     return { next, prev, maxPag }
 }
+const getAllMoviesEmptyArray = (): GetAllMoviesResp => ({ 
+    movies: [], 
+    next: null, 
+    prev: null, 
+    pag: 1, 
+    maxPag: 1, 
+    totalCount: 0, 
+});
