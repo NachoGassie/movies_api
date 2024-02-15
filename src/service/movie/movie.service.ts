@@ -9,7 +9,7 @@ import * as paginationUtil from "../../utils/global/pagination.utils";
 // MySql moviesDb : dbFactory.mySqlDb.movies;
 // Pg moviesDb : dbFactory.pgDb.movies;
 
-const moviesDb = dbFactory.mySqlDb.movies;
+const moviesDb = dbFactory.pgDb.movies;
 
 export const getAllMovies = async (
     query: MovieQueries, baseUrl: string
