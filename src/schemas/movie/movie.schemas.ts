@@ -26,7 +26,10 @@ export const movieSchema = z.object({
         .lte(new Date().getFullYear(), anioLanzamientoErr),
         
     poster: z
-        .string(basicError("poster", "string")),
+        .string({
+            required_error: 'poster is required',
+            invalid_type_error: 'poster is invalid'
+        }),
 
     idGenero: z
         .number(basicError("idGenero", "number"))
