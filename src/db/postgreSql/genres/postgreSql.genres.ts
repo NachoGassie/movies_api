@@ -1,15 +1,17 @@
 import { Genre, GenreQueries } from "../../../model";
 import { postgreSqlPool } from "../pool";
 
+export const getAllGenresNoPag = async ({ order, sort }: GenreQueries): Promise<Genre[]> => {
+    const query = `SELECT * FROM generos p ORDER BY ${order} ${sort}`;
+    return (await postgreSqlPool.query(query)).rows;
+}
 export const getAllGenres = async ({ pag, limit, order, sort }: GenreQueries): Promise<Genre[]> => {
     pag = (pag-1)*limit;
-
     const query = {
         text: 
         `SELECT * FROM generos p ORDER BY ${order} ${sort} LIMIT $1 OFFSET $2`,
         values: [limit, pag],
     }
-
     return (await postgreSqlPool.query(query)).rows;
 }
 // FILTERED

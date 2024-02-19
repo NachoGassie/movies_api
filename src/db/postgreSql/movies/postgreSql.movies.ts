@@ -90,8 +90,17 @@ export const moviesCountByGenre = async (id_genero: number): Promise<number> => 
 // EXISTS
 export const existMovie = async (id: number): Promise<boolean> => {
     const query = {
-        text: "SELECT 1 FROM PELICULAS WHERE id= $1",
+        text: "SELECT 1 FROM PELICULAS WHERE id = $1",
         values: [id]
+    }
+    const resp = await postgreSqlPool.query(query);
+    return !!resp.rows[0];
+}
+export const existMovieByGenre = async (idGenero: number): Promise<boolean> => {
+    const query = {
+        text: `SELECT 1 FROM PELICULAS p INNER JOIN GENEROS g ON p.id_genero = g.id_genero 
+        WHERE g.id_genero = $1`,
+        values: [idGenero]
     }
     const resp = await postgreSqlPool.query(query);
     return !!resp.rows[0];

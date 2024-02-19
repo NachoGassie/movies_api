@@ -76,3 +76,10 @@ export const existMovie = async (id: number): Promise<boolean> => {
     );
     return !!rows[0];
 }
+export const existMovieByGenre = async (idGenero: number): Promise<boolean> => {
+    const [rows] = await pool.query<RowDataPacket[]>(
+        `SELECT 1 FROM PELICULAS p INNER JOIN GENEROS g ON p.id_genero = g.id_genero 
+        WHERE g.id_genero = ?`, [idGenero]
+    );
+    return !!rows[0];
+}

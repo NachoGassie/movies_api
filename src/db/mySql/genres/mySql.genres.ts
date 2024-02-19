@@ -2,11 +2,17 @@ import { mySqlPool as pool} from "../";
 import { Genre, GenreQueries } from "../../../model";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
+export const getAllGenresNoPag = async ({ order, sort }: GenreQueries): Promise<Genre[]> => {
+    const [rows] = await pool.query<RowDataPacket[]>(
+        `SELECT * FROM generos ORDER BY ${order} ${sort}`
+    );
+    return rows as Genre[];
+}
 export const getAllGenres = async ({ pag, limit, order, sort }: GenreQueries): Promise<Genre[]> => {
     pag = (pag-1)*limit;
 
     const [rows] = await pool.query<RowDataPacket[]>(
-        `SELECT * FROM generos ORDER BY ${order} ${sort} LIMIT ?, ?`, [pag, limit] 
+        `SELECT * FROM generos ORDER BY ${order} ${sort} LIMIT ?, ?`, [pag, limit]
     );
     return rows as Genre[];
 }

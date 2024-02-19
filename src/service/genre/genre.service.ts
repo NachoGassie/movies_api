@@ -1,4 +1,4 @@
-import { InternalError, NotFoundError } from "../../httpResponse";
+import { BadRequestError, InternalError, NotFoundError } from "../../httpResponse";
 import { Genre, GenreQueries, GetAllGenreResp, NewGenre } from "../../model";
 import { genreQueriesSchema, newGenreNameSchema } from "../../schemas";
 import { dbFactory } from "../../db";
@@ -8,7 +8,11 @@ import * as paginationUtil from "../../utils/global/pagination.utils";
 // MySql genresDb : dbFactory.mySqlDb.genres;
 // Pg genresDb : dbFactory.pgDb.genres;
 
+// MySql moviesDb : dbFactory.mySqlDb.movies;
+// Pg moviesDb : dbFactory.pgDb.movies;
+
 const genresDb = dbFactory.mySqlDb.genres;
+const moviesDb = dbFactory.mySqlDb.movies;
 
 export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promise<GetAllGenreResp> => {
     const genreQueries: GenreQueries = parseGenreQuery(query);
@@ -19,7 +23,7 @@ export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promis
 
     const { next, prev } = paginationUtil.getPaginationUrlUtil(genreQueries, baseUrl, totalCount);
 
-    const genres = await genresDb.getAllGenres(genreQueries) as Genre[];
+    const genres = await genresDb.getAllGenresNoPag(genreQueries) as Genre[];
     const maxPag = Math.ceil(totalCount / limit);
 
     return { genres, next, prev, pag, maxPag, totalCount }
@@ -57,6 +61,11 @@ export const updateOneGenre = async (id: number, newGenre: NewGenre): Promise<Ge
 }
 export const deleteOneGenre = async (idGenero: number): Promise<number> => {
     const parsedId = await validateGenreId(idGenero);
+    const moviesWithId = await moviesDb.existMovieByGenre(parsedId);
+
+    if (moviesWithId) {
+        throw new BadRequestError("genre with id "+ parsedId + " belongs to a film therefor it can not be deleted");
+    }  
 
     const affectedRows = await genresDb.deleteOneGenre(parsedId);
     if (affectedRows !== 1) {
