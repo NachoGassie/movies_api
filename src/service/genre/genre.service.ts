@@ -18,10 +18,12 @@ export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promis
     const genreQueries: GenreQueries = parseGenreQuery(query);
     const totalCount: number = await genresDb.countAllGenres();
 
-    const { pag, limit } = genreQueries;
+    const { pag } = genreQueries;
+    const limit = totalCount;
+    const getAllQueries = { ...genreQueries, limit }
     paginationUtil.isValidPagination(pag, limit, totalCount);
 
-    const { next, prev } = paginationUtil.getPaginationUrlUtil(genreQueries, baseUrl, totalCount);
+    const { next, prev } = paginationUtil.getPaginationUrlUtil(getAllQueries, baseUrl, totalCount);
 
     const genres = await genresDb.getAllGenresNoPag(genreQueries) as Genre[];
     const maxPag = Math.ceil(totalCount / limit);
