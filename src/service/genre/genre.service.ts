@@ -11,8 +11,8 @@ import * as paginationUtil from "../../utils/global/pagination.utils";
 // MySql moviesDb : dbFactory.mySqlDb.movies;
 // Pg moviesDb : dbFactory.pgDb.movies;
 
-const genresDb = dbFactory.mySqlDb.genres;
-const moviesDb = dbFactory.mySqlDb.movies;
+const genresDb = dbFactory.pgDb.genres;
+const moviesDb = dbFactory.pgDb.movies;
 
 export const getAllGenres = async (query: GenreQueries, baseUrl: string): Promise<GetAllGenreResp> => {
     const genreQueries: GenreQueries = parseGenreQuery(query);

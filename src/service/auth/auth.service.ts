@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 // MySql authDb : dbFactory.mySqlDb.auth;
 // Pg authDb : dbFactory.pgDb.auth;
 
-const authDb = dbFactory.mySqlDb.auth;
+const authDb = dbFactory.pgDb.auth;
 
 export const validateUser = async (newUser: NewUser): Promise<ValidateUserResponse> => {
     const { email: reqEmail, password: reqPassword } = await newUserSchema.parseAsync(newUser);
